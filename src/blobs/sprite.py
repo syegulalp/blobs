@@ -34,7 +34,7 @@ class GameSprite(pyglet.sprite.Sprite):
         self.h = self.height
         self.fx = self._x
         self.fy = self._y
-        self.cells = set()
+        self.cells = set()        
 
     def add_cell(self, cells):
         wt = self.fx + self.w
@@ -85,10 +85,9 @@ class GameSprite(pyglet.sprite.Sprite):
                     return True
 
     def oob(self):
-        if (
+        return (
             self.fx < 0
             or self.fx + self.w > WIDTH
             or self.fy < 0
             or self.fy + self.h > HEIGHT
-        ):
-            return True
+        )
