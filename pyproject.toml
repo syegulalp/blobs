@@ -1,0 +1,28 @@
+[project]
+name = "blobs"
+version = "0.1"
+dependencies = ["pyglet"]
+
+# [project.optional-dependencies]
+# dev = ["Cython>=3.0.0", "build", "setuptools"]
+
+# [build-system]
+# requires = ["setuptools", "Cython>=3.0.0"]
+
+[project.scripts]
+blobs_c = "blobs:main"
+
+[project.gui-scripts]
+blobs = "blobs:main"
+
+# These two sections remove the C source from the wheel
+# but will retain them for the source distribution
+
+#[tool.setuptools.packages.find]
+#where = ["src"]
+
+#[tool.setuptools.exclude-package-data]
+#cylife = ["render.c"]
+
+[tool.pydeploy]
+data_dirs = [["data", "data"]]
