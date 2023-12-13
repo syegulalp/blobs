@@ -269,11 +269,13 @@ class Enemy(GameSprite):
         self.fx = self._x + self._vec[0]
         if self.grid_collide(game.grid):
             self.fx = self._x
+            self.speed = randint(1, 4)
             self._vec = [n * self.speed for n in choice(vecs)]
 
         self.fy = self._y + self._vec[1]
         if self.grid_collide(game.grid):
             self.fy = self._y
+            self.speed = randint(1, 4)
             self._vec = [n * self.speed for n in choice(vecs)]
 
         if collider := self.collide(game.cells):
