@@ -237,7 +237,6 @@ class Enemy(GameSprite):
         self._vec = [n * self.speed for n in choice(vecs)]
 
     def act(self, game):
-        window = game.window
         self.timer = (self.timer + 1) % 50
 
         if not self.timer % 2:
