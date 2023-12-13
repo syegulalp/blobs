@@ -66,10 +66,10 @@ class GameSprite(pyglet.sprite.Sprite):
             for x in xx:
                 cell = cells[(x, y)]
                 for other in cell:
-                    if other is self or other.__class__ not in self.collisions:
-                        continue
                     if (
-                        ht >= other.fy
+                        other is not self
+                        and other.__class__ in self.collisions
+                        and ht >= other.fy
                         and wt >= other.fx
                         and other.fx + other.w >= self.fx
                         and other.fy + other.h >= self.fy

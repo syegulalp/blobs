@@ -5,6 +5,7 @@ from .constants import *
 from .entities import Enemy, Player
 import array
 
+
 class Grid(array.array):
     post = array.array("B", b"\x00\x40\xff\xff")
     spacing = 8
@@ -16,7 +17,7 @@ class Grid(array.array):
         item._height = height
         item.cache = {}
         return item
-    
+
     def generate_maze(self):
         for _ in range(GRID_WIDTH):
             self[(_, 0)] = Grid.post
@@ -59,7 +60,7 @@ class Grid(array.array):
 
     def __getitem__(self, idx):
         return self.cache.get(idx, None)
-    
+
     def __setitem__(self, idx, val):
         self.cache[idx] = val
         x, y = idx
