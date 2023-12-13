@@ -64,8 +64,7 @@ class GameSprite(pyglet.sprite.Sprite):
         xx = range(csx, csy)
         for y in range(self.fy // CELL_SIZE, (ht // CELL_SIZE) + 1):
             for x in xx:
-                cell = cells[(x, y)]
-                for other in cell:
+                for other in cells[(x, y)]:
                     if (
                         other is not self
                         and other.__class__ in self.collisions
