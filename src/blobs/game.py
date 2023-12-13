@@ -4,7 +4,7 @@ import pyglet
 from .constants import *
 from .entities import Enemy, Player
 import array
-
+from functools import cache
 
 class Grid(array.array):
     post = array.array("B", b"\x00\x40\xff\xff")
@@ -17,6 +17,9 @@ class Grid(array.array):
         item._height = height
         item.cache = {}
         return item
+    
+    # def __hash__(self):
+    #     return id(self)
 
     def generate_maze(self):
         for _ in range(GRID_WIDTH):
@@ -59,16 +62,10 @@ class Grid(array.array):
         )
 
     def __getitem__(self, idx):
-        try:
-            return self.cache[idx]
-        except:
-            x, y = idx
-            pos = ((y % self._height) * self._width + (x % self._width)) * 4
-            result = super().__getitem__(pos + 3)
-            self.cache[idx] = result
-            return result
-
+        return self.cache.get(idx, None)
+    
     def __setitem__(self, idx, val):
+        self.cache[idx] = val
         x, y = idx
         pos = ((y % self._height) * self._width + (x % self._width)) * 4
         return super().__setitem__(slice(pos, pos + 4), val)
