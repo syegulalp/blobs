@@ -15,6 +15,7 @@ class Grid(array.array):
         item = super().__new__(cls, "B", b"\x00" * (width * height * 4))
         item._width = width
         item._height = height
+        item.cache = {}
         return item
 
     def generate_maze(self):
@@ -58,9 +59,14 @@ class Grid(array.array):
         )
 
     def __getitem__(self, idx):
-        x, y = idx
-        pos = ((y % self._height) * self._width + (x % self._width)) * 4
-        return super().__getitem__(pos + 3)
+        try:
+            return self.cache[idx]
+        except:
+            x, y = idx
+            pos = ((y % self._height) * self._width + (x % self._width)) * 4
+            result = super().__getitem__(pos + 3)
+            self.cache[idx] = result
+            return result
 
     def __setitem__(self, idx, val):
         x, y = idx
