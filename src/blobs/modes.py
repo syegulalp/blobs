@@ -1,7 +1,30 @@
+import pyglet
+from . import sound
+from .constants import WIDTH, HEIGHT
+
+
 class Loop:
     def __init__(self, window, game):
         self.window = window
         self.game = game
+
+    def on_draw(self, *a, **ka):
+        ...
+
+    def on_key_press(self, *a, **ka):
+        ...
+
+    def on_key_release(self, *a, **ka):
+        ...
+
+    def event(self, *a, **ka):
+        ...
+
+    def enter(self):
+        ...
+
+    def exit(self):
+        ...
 
 
 class MainLoop(Loop):
@@ -26,6 +49,9 @@ class MainLoop(Loop):
     def on_key_press(self, symbol, modifiers):
         p = self.game.player
         print(symbol)
+
+        if symbol == 112:
+            self.window.push_mode(Pause)
 
         if symbol == 97:
             p.shot_vector[0] -= 1
@@ -73,3 +99,40 @@ class MainLoop(Loop):
         elif symbol == 65362:
             p._vec[1] -= p.speed
             p.anim = 0
+
+
+class Pause(Loop):
+    def on_draw(self, *a, **ka):
+        window = self.window
+
+        with window.timer:
+            window.clear()
+            window.batch.draw()
+            window.foreground.draw()
+            self.label.draw()
+
+    def enter(self):
+        window = self.window
+        self.audio_playing = sound.audio.playing
+        if self.audio_playing:
+            sound.audio.pause()
+
+        self.label = pyglet.text.Label(
+            "Paused - Press space to continue",
+            font_name="Robotron 2084",
+            font_size=18,
+            x=WIDTH // 2,
+            y=HEIGHT // 2,
+            align="center",
+            anchor_x="center",
+            anchor_y="center",
+        )
+
+    def exit(self):
+        self.label.delete()
+        if self.audio_playing:
+            sound.audio.play()
+
+    def on_key_press(self, symbol, modifiers):
+        if symbol == 32:
+            self.window.pop_mode()

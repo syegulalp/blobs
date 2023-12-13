@@ -19,20 +19,36 @@ class Window(pyglet.window.Window):
         self.background = pyglet.graphics.Batch()
         self.foreground = pyglet.graphics.Batch()
 
+        self.mode = None
+        self.mode_stack = []
+
+        pyglet.font.add_directory(str(DATA))
+
         from .game import Game
         from .modes import MainLoop
 
         self.game = Game(self)
         self.game.new_game()
 
-        self.set_mode(MainLoop)
+        self.push_mode(MainLoop)
 
         self.view = self.view.scale((ZOOM, ZOOM, 1))
         self.set_mouse_cursor(self.get_system_mouse_cursor(self.CURSOR_DEFAULT))
         self.set_visible(True)
 
-    def set_mode(self, mode):
+    def push_mode(self, mode):
+        if self.mode:
+            self.mode_stack.append(self.mode)
         self.mode = mode(self, self.game)
+        self.set_mode_bindings()
+        self.mode.enter()
+
+    def pop_mode(self):
+        self.mode.exit()
+        self.mode = self.mode_stack.pop()
+        self.set_mode_bindings()
+
+    def set_mode_bindings(self):
         for m in ("on_key_press", "on_key_release", "on_draw"):
             setattr(self, f"_{m}", getattr(self.mode, m))
 

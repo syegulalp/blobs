@@ -7,6 +7,7 @@ import array
 
 
 class Grid(array.array):
+    __slots__ = "_width", "_height", "cache", "grid_texture", "grid_sprite"
     post = array.array("B", b"\x00\x40\xff\xff")
     spacing = 8
     positions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
@@ -69,6 +70,8 @@ class Grid(array.array):
 
 
 class Game:
+    __slots__ = "window", "sprites", "bullets", "cells", "grid", "safe_zones", "player"
+
     def __init__(self, window):
         self.window = window
         self.sprites = []
