@@ -1,5 +1,7 @@
 import pyglet
 from .constants import *
+from .timer import timer
+
 
 class GameSprite(pyglet.sprite.Sprite):
     def __init__(self, *a, **ka):
@@ -8,7 +10,7 @@ class GameSprite(pyglet.sprite.Sprite):
         self.h = self.height
         self.fx = self._x
         self.fy = self._y
-        self.cells = set()        
+        self.cells = set()
 
     def add_cell(self, cells):
         wt = self.fx + self.w

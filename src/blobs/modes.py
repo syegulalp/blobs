@@ -1,6 +1,7 @@
 import pyglet
 from . import sound
 from .constants import WIDTH, HEIGHT
+from .timer import timer
 
 
 class Loop:
@@ -30,9 +31,8 @@ class Loop:
 class MainLoop(Loop):
     def event(self, *a):
         game = self.game
-        window = self.window
 
-        with window.timer:
+        with timer:
             game.sprites = [s for s in game.sprites if s._visible]
             for sprite in game.sprites:
                 sprite.act(game)
@@ -105,7 +105,7 @@ class Pause(Loop):
     def on_draw(self, *a, **ka):
         window = self.window
 
-        with window.timer:
+        with timer:
             window.clear()
             window.batch.draw()
             window.foreground.draw()

@@ -13,3 +13,6 @@ class Timer:
         if not self.avg:
             self.avg = self.total
         self.avg = (self.avg + self.total) / 2
+
+
+timer = Timer()

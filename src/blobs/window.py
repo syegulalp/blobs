@@ -1,6 +1,6 @@
 import pyglet
 
-from .timer import Timer
+from .timer import timer
 from .constants import *
 
 
@@ -14,7 +14,6 @@ class Window(pyglet.window.Window):
             self.screen.height // 2 - self.height // 2,
         )
 
-        self.timer = Timer()
         self.batch = pyglet.graphics.Batch()
         self.background = pyglet.graphics.Batch()
         self.foreground = pyglet.graphics.Batch()
@@ -62,4 +61,5 @@ class Window(pyglet.window.Window):
         return self._on_draw(*a, **ka)
 
     def output(self, *a):
-        print("Loop time", self.timer.avg, "%", self.timer.avg / (1 / 60) * 100)
+        t = timer
+        print("Loop time", t.avg, "%", t.avg / (1 / 60) * 100)

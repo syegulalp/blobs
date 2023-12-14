@@ -32,7 +32,6 @@ vecs = (
 )
 
 
-
 class SubBullet(GameSprite):
     def __init__(self, *a, **ka):
         self.parent = ka.pop("parent")
