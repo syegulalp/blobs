@@ -163,8 +163,6 @@ class Bullet:
                 except KeyError:
                     ...
 
-                b.delete()
-
             self.bullets = []
 
 

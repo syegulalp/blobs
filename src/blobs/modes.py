@@ -1,4 +1,5 @@
 import pyglet
+import msvcrt
 from . import sound
 from .constants import WIDTH, HEIGHT
 from .timer import timer
@@ -41,7 +42,7 @@ class MainLoop(Loop):
         self.event()
         window.clear()
         window.batch.draw()
-        window.foreground.draw()
+        window.foreground.draw()        
 
     # theoretically we could move this to the player object
 
@@ -124,10 +125,10 @@ class Pause(Loop):
             align="center",
             anchor_x="center",
             anchor_y="center",
+            batch=self.window.foreground
         )
 
     def exit(self):
-        self.label.delete()
         if self.audio_playing:
             sound.audio.play()
 
