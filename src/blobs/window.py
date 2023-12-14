@@ -20,8 +20,6 @@ class Window(pyglet.window.Window):
         self.mode = None
         self.mode_stack = []
 
-        pyglet.font.add_directory(str(DATA))
-
         from .game import Game
         from .modes import MainLoop
 
