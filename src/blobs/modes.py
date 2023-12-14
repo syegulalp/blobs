@@ -112,7 +112,6 @@ class Pause(Loop):
             self.label.draw()
 
     def enter(self):
-        window = self.window
         self.audio_playing = sound.audio.playing
         if self.audio_playing:
             sound.audio.pause()

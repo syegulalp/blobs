@@ -1,10 +1,36 @@
 import pyglet
-from .sprite import GameSprite, vecs, animations
+from .sprite import GameSprite
 from . import graphics
 from . import sound
 from .sound import playsound
 from random import choice, randint, randrange
 from math import hypot
+
+animations = (
+    (0, 1, 2, 9),
+    (3, 4),
+    (5, 6),
+    (7, 8, 25, 8),
+    (12,),
+    (13, 14),
+    (16, 17, 18, 19, 10, 11),
+    (28, 29, 20, 21, 22, 23),
+    (24,),
+    (25,),
+    (26, 25, 27, 25),
+)
+
+vecs = (
+    (-1, -1),
+    (-1, 0),
+    (-1, 1),
+    (0, -1),
+    (0, 1),
+    (1, -1),
+    (1, 0),
+    (1, 1),
+)
+
 
 
 class SubBullet(GameSprite):
