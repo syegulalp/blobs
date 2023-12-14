@@ -1,6 +1,5 @@
 import pyglet
 
-from .timer import timer
 from .constants import *
 
 
@@ -59,7 +58,3 @@ class Window(pyglet.window.Window):
 
     def on_draw(self, *a, **ka):
         return self._on_draw(*a, **ka)
-
-    def output(self, *a):
-        t = timer
-        print("Loop time", t.avg, "%", t.avg / (1 / 60) * 100)

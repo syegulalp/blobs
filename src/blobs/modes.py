@@ -3,7 +3,6 @@ from . import sound
 from .constants import WIDTH, HEIGHT
 from .timer import timer
 
-
 class Loop:
     def __init__(self, window, game):
         self.window = window

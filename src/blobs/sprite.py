@@ -1,6 +1,5 @@
 import pyglet
 from .constants import *
-from .timer import timer
 
 
 class GameSprite(pyglet.sprite.Sprite):
