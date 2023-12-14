@@ -324,10 +324,16 @@ class Enemy(GameSprite):
 class Dead(GameSprite):
     def reset(self, game):
         self.timer = 60
-        self.image = choice(graphics.dead)
+        self.image = graphics.dead[19]
 
     def act(self, game):
         self.timer -= 1
+        if self.timer>52:            
+            self.image = graphics.dead[
+                ((self.timer) % 4) + 16
+            ]
+        elif self.timer == 52:
+            self.image = graphics.dead[randint(0,15)]
         if not self.timer:
             self.visible = False
             self.clear_cell(game.cells)
