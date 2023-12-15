@@ -183,8 +183,6 @@ class Player(GameSprite):
         game.sprites.append(self)
 
     def act(self, game):
-        window = game.window
-
         if game.bullets:
             for bullet in game.bullets:
                 bullet.event(game)
