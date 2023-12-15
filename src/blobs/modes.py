@@ -1,5 +1,4 @@
 import pyglet
-import msvcrt
 from . import sound
 from .constants import WIDTH, HEIGHT
 from .timer import timer
