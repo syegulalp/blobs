@@ -81,7 +81,7 @@ class GameSprite(pyglet.sprite.Sprite):
     def oob(self):
         """
         Test if the sprite has gone offscreen.
-        """        
+        """
         return (
             self.fx < 0
             or self.fx + self.w > WIDTH

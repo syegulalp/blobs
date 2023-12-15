@@ -4,6 +4,7 @@ from . import sound
 from .constants import WIDTH, HEIGHT
 from .timer import timer
 
+
 class Loop:
     def __init__(self, window, game):
         self.window = window
@@ -42,7 +43,7 @@ class MainLoop(Loop):
         self.event()
         window.clear()
         window.batch.draw()
-        window.foreground.draw()        
+        window.foreground.draw()
 
     # theoretically we could move this to the player object
 
@@ -125,7 +126,7 @@ class Pause(Loop):
             align="center",
             anchor_x="center",
             anchor_y="center",
-            batch=self.window.foreground
+            batch=self.window.foreground,
         )
 
     def exit(self):

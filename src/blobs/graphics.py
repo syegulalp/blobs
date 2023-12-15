@@ -5,6 +5,7 @@ def make_resource(name, x, y):
     res = pyglet.resource.image(name)
     return pyglet.image.TextureGrid(pyglet.image.ImageGrid(res, x, y))
 
+
 # TODO: extract blast to its own sheet for easier working
 
 anim = make_resource("Blobbo.png", 6, 5)

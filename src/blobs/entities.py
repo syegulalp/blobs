@@ -241,7 +241,7 @@ class Enemy(GameSprite):
         self._a_pos = a_pos
         self._vec = [0, 0]
         self.timer = randint(0, 50)
-        self.speed = randint(1, 3)
+        self.speed = 0
         game.sprites.append(self)
 
     def place(self, game):
@@ -257,7 +257,7 @@ class Enemy(GameSprite):
             self.clear_cell(game.cells)
 
         self.x = self._x
-        self._vec = [n * self.speed for n in choice(vecs)]
+        self.randomize_movement()
 
     def act(self, game):
         self.timer = (self.timer + 1) % 50
@@ -273,8 +273,7 @@ class Enemy(GameSprite):
             if self.mode == 1:
                 if dist > 100 or randint(1, 4) == 3:
                     self.mode == 0
-                    self._vec = choice(vecs)
-                    self.speed = randint(1, 4)
+                    self.randomize_movement()
         else:
             if dist < 100:
                 self.mode == 1
@@ -291,14 +290,12 @@ class Enemy(GameSprite):
         self.fx = self._x + self._vec[0]
         if self.grid_collide(game.grid):
             self.fx = self._x
-            self.speed = randint(1, 4)
-            self._vec = [n * self.speed for n in choice(vecs)]
+            self.randomize_movement()
 
         self.fy = self._y + self._vec[1]
         if self.grid_collide(game.grid):
             self.fy = self._y
-            self.speed = randint(1, 4)
-            self._vec = [n * self.speed for n in choice(vecs)]
+            self.randomize_movement()
 
         if collider := self.collide(game.cells):
             if isinstance(collider, SubBullet):
@@ -307,13 +304,16 @@ class Enemy(GameSprite):
             self.fx = self._x
             self.fy = self._y
             self.mode = 0
-            self.speed = randint(1, 4)
-            self._vec = [n * self.speed for n in choice(vecs)]
+            self.randomize_movement()
         else:
             self._x = self.fx
             self.y = self.fy
 
         self.add_cell(game.cells)
+
+    def randomize_movement(self):
+        self.speed = randint(1, 4)
+        self._vec = [n * self.speed for n in choice(vecs)]
 
     def die(self, game):
         playsound(choice(sound.explosions))
@@ -328,12 +328,10 @@ class Dead(GameSprite):
 
     def act(self, game):
         self.timer -= 1
-        if self.timer>52:            
-            self.image = graphics.dead[
-                ((self.timer) % 4) + 16
-            ]
+        if self.timer > 52:
+            self.image = graphics.dead[((self.timer) % 4) + 16]
         elif self.timer == 52:
-            self.image = graphics.dead[randint(0,15)]
+            self.image = graphics.dead[randint(0, 15)]
         if not self.timer:
             self.visible = False
             self.clear_cell(game.cells)
