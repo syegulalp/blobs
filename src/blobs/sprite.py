@@ -17,10 +17,7 @@ class GameSprite(pyglet.sprite.Sprite):
         that it is big enough to cover.
         """
         wt = self.fx + self.w
-        csx = self.fx // CELL_SIZE
-        csy = (wt // CELL_SIZE) + 1
-
-        xx = range(csx, csy)
+        xx = range(self.fx // CELL_SIZE, (wt // CELL_SIZE) + 1)
         for y in range(self.fy // CELL_SIZE, ((self.fy + self.h) // CELL_SIZE) + 1):
             for x in xx:
                 pos = (x, y)
@@ -70,9 +67,7 @@ class GameSprite(pyglet.sprite.Sprite):
         """
         Test if the sprite collides with an element in the maze grid.
         """
-        csx = self.fx // GRID_SIZE
-        csy = ((self.fx + self.w) // GRID_SIZE) + 1
-        xx = range(csx, csy)
+        xx = range(self.fx // GRID_SIZE, ((self.fx + self.w) // GRID_SIZE) + 1)
         for y in range(self.fy // GRID_SIZE, ((self.fy + self.h) // GRID_SIZE) + 1):
             for x in xx:
                 if grid[(x, y)]:
