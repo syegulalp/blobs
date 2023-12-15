@@ -19,5 +19,4 @@ timer = Timer()
 
 
 def output(*a):
-    timer
     print("Loop time", timer.avg, "%", timer.avg / (1 / 60) * 100)
