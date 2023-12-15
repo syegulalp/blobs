@@ -59,6 +59,9 @@ class Grid(array.array):
             0,
         )
 
+    # We do not need to test every pixel in the underlying byte array
+    # when checking for collisions. We can use a cache to speed this up.
+
     def __getitem__(self, idx):
         return self.cache.get(idx, None)
 
@@ -83,6 +86,10 @@ class Game:
         window = self.window
         self.grid.generate_maze()
         self.grid.create_sprite(window)
+
+        # Create the space partitions we use for collision detection.
+        # Future versions of this code might have the space partition
+        # system moved to another object or just made part of the GameSprite class.
 
         for y in range(-1, HEIGHT // CELL_SIZE + 2):
             for x in range(-1, WIDTH // CELL_SIZE + 2):

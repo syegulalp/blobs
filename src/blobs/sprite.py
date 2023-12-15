@@ -12,6 +12,10 @@ class GameSprite(pyglet.sprite.Sprite):
         self.cells = set()
 
     def add_cell(self, cells):
+        """
+        Add this sprite to all the cells in the collision detection grid
+        that it is big enough to cover.
+        """
         wt = self.fx + self.w
         csx = self.fx // CELL_SIZE
         csy = (wt // CELL_SIZE) + 1
@@ -24,11 +28,23 @@ class GameSprite(pyglet.sprite.Sprite):
                 self.cells.add(pos)
 
     def clear_cell(self, cells):
+        """
+        Remove this sprite from all the cells in the collision detection grid
+        that it currently occupies.
+        """
         for cell in self.cells:
             cells[cell].remove(self)
         self.cells.clear()
 
     def collide(self, cells):
+        """
+        Test this sprite for collisions with all other elements,
+        based on the sprite's fx/fy coordinates (its prospective move).
+        We don't need to have an element in any cells to test collisions,
+        so this allows us to speed up our tests slightly, and to test
+        in a more granular way.
+        """
+
         other: GameSprite
 
         wt = self.fx + self.w
@@ -51,6 +67,9 @@ class GameSprite(pyglet.sprite.Sprite):
                         return other
 
     def grid_collide(self, grid):
+        """
+        Test if the sprite collides with an element in the maze grid.
+        """
         csx = self.fx // GRID_SIZE
         csy = ((self.fx + self.w) // GRID_SIZE) + 1
         xx = range(csx, csy)
@@ -60,6 +79,9 @@ class GameSprite(pyglet.sprite.Sprite):
                     return True
 
     def oob(self):
+        """
+        Test if the sprite has gone offscreen.
+        """        
         return (
             self.fx < 0
             or self.fx + self.w > WIDTH
