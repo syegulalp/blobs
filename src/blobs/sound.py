@@ -15,3 +15,11 @@ def playsound(sound):
     else:
         audio.queue(sound)
     audio.play()
+
+# This is done to prime the audio player,
+# and prevent discernible lag on first play of game sounds.
+
+audio.volume = 0
+playsound(shot)
+audio.pause()
+audio.volume = 1
