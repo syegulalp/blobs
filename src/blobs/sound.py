@@ -22,4 +22,5 @@ def playsound(sound):
 audio.volume = 0
 playsound(shot)
 audio.pause()
+audio.next_source()
 audio.volume = 1
